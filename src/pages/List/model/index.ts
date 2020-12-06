@@ -73,10 +73,10 @@ class PageModel extends LifeCycle<Params, Query> {
         let head = list1,
             tail: any = null;
         while (head) {
-            const current = head.next;
-            head.next = tail; // 将下一步tail的next指向上一步的tail,head在循环最后被重新赋值
-            tail = head;
-            head = current;
+            const current = head.next; // 保存当前节点的指针指向
+            head.next = tail; // 使当前节点指针指向老tail
+            tail = head; // 新tail获得当前head值并能将指针指向老tail
+            head = current; // head降级
         }
         console.log(tail);
     };

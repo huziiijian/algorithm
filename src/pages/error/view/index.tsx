@@ -16,7 +16,6 @@ const View: FC<Props> = observer((props) => {
          <h1>力扣算法题解</h1>
          <p onClick={() => props.store.JumpTo('array')}>数组思想</p>
          <p onClick={() => props.store.JumpTo('list')}>链表思想</p>
-         <p onClick={() => props.store.JumpTo('numbers')}>数字类型</p>
       </div>
    );
 })

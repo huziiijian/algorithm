@@ -9,10 +9,6 @@ let RouteConfig:Array<{
       component: AsyncComponent(()=>import('src/pages/Array'))
    },
    {
-      path:'/numbers',
-      component: AsyncComponent(()=>import('src/pages/Numbers'))
-   },
-   {
       path:'/list',
       component: AsyncComponent(()=>import('src/pages/List'))
    }
