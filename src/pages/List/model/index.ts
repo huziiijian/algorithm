@@ -7,23 +7,11 @@ interface Params {}
 interface Query {}
 const list1 = {
     val: 1,
-    next: {
-        val: 2,
-        next: {
-            val: 7,
-            next: null,
-        },
-    },
+    next: {}
 };
 const list2 = {
     val: 4,
-    next: {
-        val: 5,
-        next: {
-            val: 6,
-            next: null,
-        },
-    },
+    next: {}
 };
 class ListNode {
     val: any;
@@ -73,10 +61,10 @@ class PageModel extends LifeCycle<Params, Query> {
         if (!list1 || !list1.next) return list1;
         let head = list1,
             tail: any = null;
-        while (head) {
+        while (head) { // 1,4步用来遍历，2,3步用来赋值
             const current = head.next; // 保存当前节点的指针指向
             head.next = tail; // 使当前节点指针指向老tail
-            tail = head; // 新tail获得当前head值并能将指针指向老tail
+            tail = head; // 新tail获得当前head值，并能将指针指向老tail，不会丢失之前的赋值
             head = current; // head降级
         }
         console.log(tail);
@@ -84,7 +72,7 @@ class PageModel extends LifeCycle<Params, Query> {
 
     //  合并有序链表
     mergeTwoLists1 = (list1: any, list2: any) => {
-        if (list1 === null) { // 防止特殊情况
+        if (list1 === null) { // 防止特殊情况，若有一者为空则返回非空链表
             return list2; 
         }
         if (list2 === null) { // 防止特殊情况
@@ -93,7 +81,7 @@ class PageModel extends LifeCycle<Params, Query> {
         if (list1.val < list2.val) {
             list1.next = this.mergeTwoLists1(list1.next, list2);
             return list1;
-        } else {
+        } else { // 注意上面的非空判断并不是常规的出口，这里的else为list.next在非null情况下，最后所有情况的出口
             list2.next = this.mergeTwoLists2(list1, list2.next);
             return list2;
         }
@@ -109,7 +97,7 @@ class PageModel extends LifeCycle<Params, Query> {
                 prevNode.next = l2;
                 l2 = l2.next;
             }
-            prevNode = prevNode.next;
+            prevNode = prevNode.next; // 改变prevNode去获得新的next指向，但prevHead不会被污染
         }
         prevNode.next = l1 ? l1 : l2; // 指向剩余的l1,l2
         return prevHead.next;
