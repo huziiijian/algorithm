@@ -42,6 +42,11 @@ const View: FC<Props> = observer((props) => {
             <a href="https://leetcode-cn.com/problems/longest-common-prefix/solution/hua-jie-suan-fa-14-zui-chang-gong-gong-qian-zhui-b/">
                 最长公共前缀
             </a>
+            <br />
+            <br />
+            <a href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/solution/26-shan-chu-pai-xu-shu-zu-zhong-de-zhong-fu-xian-6/">
+                删除排序数组中的重复项
+            </a>
         </div>
     );
 });

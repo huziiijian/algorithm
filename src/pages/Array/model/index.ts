@@ -16,6 +16,7 @@ class PageModel extends LifeCycle<Params, Query> {
         console.log(this.romanToInt("MCMXCIV"));
         console.log(this.longestCommonPrefix(["asdf", "ascez", "awwww"]));
         console.log(this.threeSum([1, -3, 2, 3, -1, -1, -1, -2, 4]));
+        this.removeDuplicates([1, 1, 2, 2, 3, 4]);
     }
 
     // 一维数组的动态和
@@ -178,7 +179,7 @@ class PageModel extends LifeCycle<Params, Query> {
     };
 
     //  三数之和
-    threeSum = function (nums: Array<number>) {
+    threeSum = (nums: Array<number>) => {
         let ans: Array<Array<number>> = [];
         const len = nums.length;
         if (nums == null || len < 3) return ans;
@@ -192,8 +193,8 @@ class PageModel extends LifeCycle<Params, Query> {
                 const sum = nums[i] + nums[L] + nums[R];
                 if (sum == 0) {
                     ans.push([nums[i], nums[L], nums[R]]);
-                    while(L < R && nums[L] == nums[L + 1]) L++; // 去重
-                    while(L < R && nums[R] == nums[R - 1]) R--; // 去重
+                    while (L < R && nums[L] == nums[L + 1]) L++; // 去重
+                    while (L < R && nums[R] == nums[R - 1]) R--; // 去重
                     L++;
                     R--;
                 } else if (sum < 0) L++;
@@ -201,6 +202,19 @@ class PageModel extends LifeCycle<Params, Query> {
             }
         }
         return ans;
+    };
+
+    //  删除排序数组中的重复项
+    removeDuplicates = (nums: Array<number>) => {
+        let j = 0; // 新数组指针
+        const len = nums.length;
+        for (let i = 1; i < len; i++) {
+            if (nums[i] != nums[i - 1]) {
+                j++;
+                nums[j] = nums[i];
+            } // 重复情况不生成新数组元素，指针不改变
+        }
+        console.log(nums);
     };
 }
 
