@@ -13,6 +13,9 @@ class PageModel extends LifeCycle<Params, Query> {
         console.log(this.isPalindrome(2020202));
         console.log(this.maximumSwap(68124));
         console.log(this.isValid("(]"));
+        console.log(this.romanToInt("MCMXCIV"));
+        console.log(this.longestCommonPrefix(["asdf", "ascez", "awwww"]));
+        console.log(this.threeSum([1, -3, 2, 3, -1, -1, -1, -2, 4]));
     }
 
     // 一维数组的动态和
@@ -121,6 +124,83 @@ class PageModel extends LifeCycle<Params, Query> {
             }
         }
         return !arr.length;
+    };
+
+    //  罗马数字转整数
+    romanToInt = (str: string) => {
+        const map: {
+            [key: string]: number;
+        } = {
+            I: 1,
+            V: 5,
+            X: 10,
+            L: 50,
+            C: 100,
+            D: 500,
+            M: 1000,
+            IV: 4,
+            IX: 9,
+            XL: 40,
+            XC: 90,
+            CD: 400,
+            CM: 900,
+        };
+        let res = 0;
+        const len = str.length;
+        for (let i = 0; i < len; ) {
+            if (map[str[i] + str[i + 1]]) {
+                res += map[str[i] + str[i + 1]];
+                i += 2;
+            } else {
+                res += map[str[i]];
+                i++;
+            }
+        }
+        return res;
+    };
+
+    //  最长公共前缀
+    longestCommonPrefix = (strs: Array<string>) => {
+        if (strs.length === 0) return "";
+        let prefix = strs[0]; // 初始化公共前缀
+        const len = prefix.length;
+        for (let i = 1; i < len - 1; i++) {
+            // 字符串索引
+            let j = 0;
+            const curStr = strs[i];
+            const curLen = curStr.length;
+            for (; j < curLen; j++) {
+                if (curStr[j] != prefix[j]) break;
+            }
+            prefix = curStr.substr(0, j);
+        }
+        return prefix;
+    };
+
+    //  三数之和
+    threeSum = function (nums: Array<number>) {
+        let ans: Array<Array<number>> = [];
+        const len = nums.length;
+        if (nums == null || len < 3) return ans;
+        nums.sort((a, b) => a - b); // 排序
+        for (let i = 0; i < len; i++) {
+            if (nums[i] > 0) break; // 如果当前数字大于0，则三数之和一定大于0，所以结束循环
+            if (i > 0 && nums[i] == nums[i - 1]) continue; // 去重
+            let L = i + 1;
+            let R = len - 1;
+            while (L < R) {
+                const sum = nums[i] + nums[L] + nums[R];
+                if (sum == 0) {
+                    ans.push([nums[i], nums[L], nums[R]]);
+                    while(L < R && nums[L] == nums[L + 1]) L++; // 去重
+                    while(L < R && nums[R] == nums[R - 1]) R--; // 去重
+                    L++;
+                    R--;
+                } else if (sum < 0) L++;
+                else if (sum > 0) R--;
+            }
+        }
+        return ans;
     };
 }
 

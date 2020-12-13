@@ -32,6 +32,16 @@ const View: FC<Props> = observer((props) => {
             <a href="https://leetcode-cn.com/problems/valid-parentheses/">
                 有效括号
             </a>
+            <br />
+            <br />
+            <a href="https://leetcode-cn.com/problems/roman-to-integer/solution/hua-jie-suan-fa-13-luo-ma-shu-zi-zhuan-zheng-shu-b/">
+                罗马数字转整数
+            </a>
+            <br />
+            <br />
+            <a href="https://leetcode-cn.com/problems/longest-common-prefix/solution/hua-jie-suan-fa-14-zui-chang-gong-gong-qian-zhui-b/">
+                最长公共前缀
+            </a>
         </div>
     );
 });
