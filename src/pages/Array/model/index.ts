@@ -17,6 +17,10 @@ class PageModel extends LifeCycle<Params, Query> {
         console.log(this.longestCommonPrefix(["asdf", "ascez", "awwww"]));
         console.log(this.threeSum([1, -3, 2, 3, -1, -1, -1, -2, 4]));
         this.removeDuplicates([1, 1, 2, 2, 3, 4]);
+        console.log(
+            this.removeElement([1, 2, 3, 4, 5, 4, 1, 3, 3, 5, 3, 4, 3], 3)
+        );
+        console.log(this.sortString("leetcode"));
     }
 
     // 一维数组的动态和
@@ -215,6 +219,48 @@ class PageModel extends LifeCycle<Params, Query> {
             } // 重复情况不生成新数组元素，指针不改变
         }
         console.log(nums);
+    };
+
+    //  移除元素
+    removeElement = (nums: Array<number>, target: number) => {
+        let res = 0;
+        for (const item of nums) {
+            if (item != target) {
+                nums[res] = item;
+                res++;
+            }
+        }
+        return res;
+    };
+
+    //  上升下降字符串
+    sortString = (str: string) => {
+        // str => /a-z/ 初始化一个空桶记录a-z字符出现的频率
+        const nums = new Array(26).fill(0);
+        for (const char of str) {
+            // 利用index表示字符，val表示出现次数
+            nums[char.charCodeAt(0) - "a".charCodeAt(0)]++;
+        }
+        let res = "";
+        while (res.length < str.length) {
+            // 第一步，添加上升字符串
+            for (let i = 0; i < 26; i++) {
+                // i是有序的，代表哪种字符
+                if (nums[i]) {
+                    // 如果某字符存在则会被添加进res
+                    res += String.fromCharCode(i + "a".charCodeAt(0));
+                    nums[i]--;
+                }
+            }
+            // 第二步，添加下降字符串
+            for (let i = 25; i >= 0; i--) {
+                if (nums[i]) {
+                    res += String.fromCharCode(i + "a".charCodeAt(0));
+                    nums[i]--;
+                }
+            }
+        }
+        return res;
     };
 }
 

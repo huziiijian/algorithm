@@ -47,6 +47,16 @@ const View: FC<Props> = observer((props) => {
             <a href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/solution/26-shan-chu-pai-xu-shu-zu-zhong-de-zhong-fu-xian-6/">
                 删除排序数组中的重复项
             </a>
+            <br />
+            <br />
+            <a href="https://leetcode-cn.com/problems/remove-element/solution/hua-jie-suan-fa-27-yi-chu-yuan-su-by-guanpengchn/">
+                移除元素
+            </a>
+            <br />
+            <br />
+            <a href="https://leetcode-cn.com/problems/increasing-decreasing-string/solution/shang-sheng-xia-jiang-zi-fu-chuan-by-leetcode-solu/">
+                上升下降字符串
+            </a>
         </div>
     );
 });
