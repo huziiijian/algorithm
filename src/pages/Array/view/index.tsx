@@ -57,6 +57,11 @@ const View: FC<Props> = observer((props) => {
             <a href="https://leetcode-cn.com/problems/increasing-decreasing-string/solution/shang-sheng-xia-jiang-zi-fu-chuan-by-leetcode-solu/">
                 上升下降字符串
             </a>
+            <br />
+            <br />
+            <a href="https://leetcode-cn.com/problems/word-break/solution/shou-hui-tu-jie-san-chong-fang-fa-dfs-bfs-dong-tai/">
+                单词拆分
+            </a>
         </div>
     );
 });

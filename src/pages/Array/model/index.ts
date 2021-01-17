@@ -8,19 +8,7 @@ interface Query {}
 class PageModel extends LifeCycle<Params, Query> {
     constructor(props: LifeCycleProps<Params, Query>) {
         super(props);
-        this.runningSum([1, 2, 3, 4]);
-        this.twoSum([1, 2, 3, 4], 5);
-        console.log(this.isPalindrome(2020202));
-        console.log(this.maximumSwap(68124));
-        console.log(this.isValid("(]"));
-        console.log(this.romanToInt("MCMXCIV"));
-        console.log(this.longestCommonPrefix(["asdf", "ascez", "awwww"]));
-        console.log(this.threeSum([1, -3, 2, 3, -1, -1, -1, -2, 4]));
-        this.removeDuplicates([1, 1, 2, 2, 3, 4]);
-        console.log(
-            this.removeElement([1, 2, 3, 4, 5, 4, 1, 3, 3, 5, 3, 4, 3], 3)
-        );
-        console.log(this.sortString("leetcode"));
+        console.log(this.wordBreak('leetcode',['leet','code']))
     }
 
     // 一维数组的动态和
@@ -261,6 +249,24 @@ class PageModel extends LifeCycle<Params, Query> {
             }
         }
         return res;
+    };
+
+    //  单词拆分
+    wordBreak = (str: string, wordDict: Array<string>) => {
+        const wordSet = new Set(wordDict); // 可以方便的用has
+        const len = str.length;
+        const dp = new Array(len + 1).fill(false);
+        dp[0] = true; // 让边界情况满足状态转移方程
+        for (let i = 1; i <= len; i++) {
+            for (let j = i - 1; j >= 0; j--) {
+                const suffix = str.slice(j, i); 
+                if (wordSet.has(suffix) && dp[j]) { // 后缀部分是单词，且左侧子串[0,j-1]的dp[j]为真
+                    dp[i] = true;
+                    break; // dp[i] = true了，i长度的子串已经可以拆成单词了，不需要j继续划分子串了
+                }
+            }
+        }
+        return dp[len];
     };
 }
 
