@@ -62,6 +62,16 @@ const View: FC<Props> = observer((props) => {
             <a href="https://leetcode-cn.com/problems/word-break/solution/shou-hui-tu-jie-san-chong-fang-fa-dfs-bfs-dong-tai/">
                 单词拆分
             </a>
+            <br />
+            <br />
+            <a href="https://leetcode-cn.com/problems/longest-continuous-increasing-subsequence/solution/zui-chang-lian-xu-di-zeng-xu-lie-by-leet-dmb8/">
+                最长连续递增序列
+            </a>
+            <br />
+            <br />
+            <a href="https://leetcode-cn.com/problems/longest-palindromic-substring/solution/5-zui-chang-hui-wen-zi-chuan-by-alexer-660/">
+                最长回文子串
+            </a>
         </div>
     );
 });

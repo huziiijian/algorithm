@@ -8,7 +8,7 @@ interface Query {}
 class PageModel extends LifeCycle<Params, Query> {
     constructor(props: LifeCycleProps<Params, Query>) {
         super(props);
-        console.log(this.wordBreak('leetcode',['leet','code']))
+        console.log(this.longestPalindrome('1234543253'))
     }
 
     // 一维数组的动态和
@@ -259,8 +259,9 @@ class PageModel extends LifeCycle<Params, Query> {
         dp[0] = true; // 让边界情况满足状态转移方程
         for (let i = 1; i <= len; i++) {
             for (let j = i - 1; j >= 0; j--) {
-                const suffix = str.slice(j, i); 
-                if (wordSet.has(suffix) && dp[j]) { // 后缀部分是单词，且左侧子串[0,j-1]的dp[j]为真
+                const suffix = str.slice(j, i);
+                if (wordSet.has(suffix) && dp[j]) {
+                    // 后缀部分是单词，且左侧子串[0,j-1]的dp[j]为真
                     dp[i] = true;
                     break; // dp[i] = true了，i长度的子串已经可以拆成单词了，不需要j继续划分子串了
                 }
@@ -268,6 +269,38 @@ class PageModel extends LifeCycle<Params, Query> {
         }
         return dp[len];
     };
+
+    //  最长连续递增数列
+    findLengthOfLCIS = (arr: Array<number>) => {
+        // 记录当前连续递增序列的起始下标，遍历过程中比较相邻元素，根据大小决定是否需要更新连续递增序列的开始下标
+        let ans = 0;
+        let start = 0;
+        const len = arr.length - 1;
+        for (let i = 0; i <= len; i++) {
+            if (arr[i] <= arr[i - 1] && i > 0) {
+                // 注意i的取值范围限定
+                start = i; // 如果相邻元素不满足递增，则前进一步
+            }
+            ans = Math.max(ans, i - start + 1); // 比较不同递增序列长度
+        }
+        return ans;
+    };
+
+    //  最长回文子串
+    longestPalindrome = (str: string) => {
+        const len = str.length;
+        let ans = "";
+        const dp = Array.from(new Array(len), () => new Array(len).fill(false));
+        // dp[i][j] = dp[i+1][j-1] && s[i] == s[j] 状态转移方程
+        // dp[i,j]：字符串s从索引i到j的子串是否是回文串
+        for(let i = len - 1;i >= 0;i --){ 
+         for(let j = i;j < len;j ++){
+            dp[i][j] = (str[i] === str[j] && (j - i < 2));
+            if(dp[i][j]) j-i+1 > ans.length ? (ans = str.substring(i,j+1)): null
+         }
+        }
+     return ans
+   };
 }
 
 export default PageModel;
