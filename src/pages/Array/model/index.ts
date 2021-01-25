@@ -295,7 +295,8 @@ class PageModel extends LifeCycle<Params, Query> {
         // dp[i,j]：字符串s从索引i到j的子串是否是回文串
         for(let i = len - 1;i >= 0;i --){ 
          for(let j = i;j < len;j ++){
-            dp[i][j] = (str[i] === str[j] && (j - i < 2));
+            // 考虑三种情况：1.首位相等；2.字串为回文字符串；3.字串为空或者一个字符的边界收缩条件
+            dp[i][j] = (str[i] === str[j] && (j - i < 2 || dp[i+1][j-1]));
             if(dp[i][j]) j-i+1 > ans.length ? (ans = str.substring(i,j+1)): null
          }
         }
