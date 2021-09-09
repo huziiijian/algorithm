@@ -8,7 +8,7 @@ interface Query {}
 class PageModel extends LifeCycle<Params, Query> {
     constructor(props: LifeCycleProps<Params, Query>) {
         super(props);
-        console.log(this.maximumSwap(125723));
+        console.log(this.romanToInt("III"));
     }
 
     // 一维数组的动态和
@@ -148,6 +148,7 @@ class PageModel extends LifeCycle<Params, Query> {
         };
         let res = 0;
         const len = str.length;
+        // 注意i++交给内部控制
         for (let i = 0; i < len; ) {
             if (map[str[i] + str[i + 1]]) {
                 res += map[str[i] + str[i + 1]];
