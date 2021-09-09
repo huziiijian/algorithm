@@ -8,7 +8,7 @@ interface Query {}
 class PageModel extends LifeCycle<Params, Query> {
     constructor(props: LifeCycleProps<Params, Query>) {
         super(props);
-        console.log(this.longestPalindrome('1234543253'))
+        console.log(this.maximumSwap(125723));
     }
 
     // 一维数组的动态和
@@ -29,11 +29,10 @@ class PageModel extends LifeCycle<Params, Query> {
         let hash: {
             [key: number]: number;
         } = {};
-        while (index > 0) {
+        while (index >= 0) {
             if (hash[target - nums[index]]) {
                 // 目标值是否已经储存在索引内
-                console.log(index, hash[target - nums[index]]);
-                return;
+                return [index, hash[target - nums[index]]];
             } else {
                 hash[nums[index]] = index;
             }
@@ -45,9 +44,10 @@ class PageModel extends LifeCycle<Params, Query> {
     isPalindrome = (x: number) => {
         if (x < 0) return false;
         if (x < 10) return true;
-        let n = 10 ** Math.floor(Math.log10(x)); // 当前位数下最小整数
+        let n = 10 ** Math.floor(Math.log10(x)); // 当前位数下最小个位数为0的数
         while (n > 1 && x > 0) {
-            if (Math.floor(x / n) !== x % 10) return false; // 判断最大位数和最小位数是否相等
+            // 判断当前X的最大位数，和最小位数是否相等
+            if (Math.floor(x / n) !== x % 10) return false;
             x = Math.floor((x % n) / 10); // 直接删除首末两位数
             n /= 100; // 因为删除了两位数，直接除以100
         }
@@ -59,21 +59,25 @@ class PageModel extends LifeCycle<Params, Query> {
         // 从右向左找一个不靠边的最大数字max，然后找到最靠边的比max小的数字置为min，
         let nums = ("" + num).split("");
         let max = nums.length - 1;
+        // min代表比max小的，但不一定需要最小的那个数
         let min = nums.length - 1;
-        let temp = -1; // 暂时的最大值
+        let temp = -1; // 每次循环中用来记录max左侧是否有更大值
         if (nums.length == 1) return num;
+        // i用来比较min和temp
         for (let i = nums.length - 2; i >= 0; i--) {
             let curMax = temp > -1 ? nums[temp] : nums[max]; //当前用来比较的数字
             if (nums[i] < curMax) {
-                // 当前值和暂时最大值比较
+                // 当前值小于暂时最大值
                 min = i;
+                // 将max更新为当前最大值，temp重置
                 if (temp > -1) {
-                    //min的左边存在一个比max大的值，且该值左边还有一个较小的值，可以进行移位，因此重新调整max和temp
+                    //min的左边存在一个比max大的值，重定义max，重置temp
                     max = temp;
                     temp = -1;
                 }
             }
             if (nums[i] > curMax) {
+                // 当前值大于暂时最大值
                 temp = i;
             }
         }
@@ -81,7 +85,11 @@ class PageModel extends LifeCycle<Params, Query> {
         return +nums.join("");
     };
 
-    //  有效的括号
+    /**
+     * @description: 有效的括号
+     * @param {string} str
+     * @return {*}
+     */
     isValid = (str: string) => {
         // 利用栈的性质，按顺序储存字符内的括号
         let arr: Array<string> = [];
@@ -293,15 +301,18 @@ class PageModel extends LifeCycle<Params, Query> {
         const dp = Array.from(new Array(len), () => new Array(len).fill(false));
         // dp[i][j] = dp[i+1][j-1] && s[i] == s[j] 状态转移方程
         // dp[i,j]：字符串s从索引i到j的子串是否是回文串
-        for(let i = len - 1;i >= 0;i --){ 
-         for(let j = i;j < len;j ++){
-            // 考虑三种情况：1.首位相等；2.字串为回文字符串；3.字串为空或者一个字符的边界收缩条件
-            dp[i][j] = (str[i] === str[j] && (j - i < 2 || dp[i+1][j-1]));
-            if(dp[i][j]) j-i+1 > ans.length ? (ans = str.substring(i,j+1)): null
-         }
+        for (let i = len - 1; i >= 0; i--) {
+            for (let j = i; j < len; j++) {
+                // 考虑三种情况：1.首位相等；2.字串为回文字符串；3.字串为空或者一个字符的边界收缩条件
+                dp[i][j] = str[i] === str[j] && (j - i < 2 || dp[i + 1][j - 1]);
+                if (dp[i][j])
+                    j - i + 1 > ans.length
+                        ? (ans = str.substring(i, j + 1))
+                        : null;
+            }
         }
-     return ans
-   };
+        return ans;
+    };
 }
 
 export default PageModel;
