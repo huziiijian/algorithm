@@ -8,7 +8,9 @@ interface Query {}
 class PageModel extends LifeCycle<Params, Query> {
     constructor(props: LifeCycleProps<Params, Query>) {
         super(props);
-        console.log(this.romanToInt("III"));
+        const nums = [-1, 0, 1, 2, -1, -1, -1, 2, -4];
+        console.log(this.removeDuplicates(nums));
+        console.log(nums);
     }
 
     // 一维数组的动态和
@@ -164,10 +166,11 @@ class PageModel extends LifeCycle<Params, Query> {
     //  最长公共前缀
     longestCommonPrefix = (strs: Array<string>) => {
         if (strs.length === 0) return "";
-        let prefix = strs[0]; // 初始化公共前缀
-        const len = prefix.length;
-        for (let i = 1; i < len - 1; i++) {
-            // 字符串索引
+        // 初始化公共前缀为某一个字符，然后和其余字符串逐字比较
+        let prefix = strs[0];
+        const len = strs.length;
+        for (let i = 0; i < len; i++) {
+            // 字符串内字符索引
             let j = 0;
             const curStr = strs[i];
             const curLen = curStr.length;
@@ -184,18 +187,23 @@ class PageModel extends LifeCycle<Params, Query> {
         let ans: Array<Array<number>> = [];
         const len = nums.length;
         if (nums == null || len < 3) return ans;
-        nums.sort((a, b) => a - b); // 排序
+        nums.sort((a, b) => a - b);
+        // 递增排序后，即可根据位置知道相对大小
         for (let i = 0; i < len; i++) {
+            // i为起始数字
             if (nums[i] > 0) break; // 如果当前数字大于0，则三数之和一定大于0，所以结束循环
-            if (i > 0 && nums[i] == nums[i - 1]) continue; // 去重
+            if (i > 0 && nums[i] == nums[i - 1]) continue; // 注意去重是在执行一遍逻辑之后，即比较i-1和i
+            // 因为是递增数组，因此在i右边的数组中，两端相加为0概率更大
             let L = i + 1;
             let R = len - 1;
             while (L < R) {
+                // 便利i右边的数组，找到相加为0的情况，同时考虑去重
                 const sum = nums[i] + nums[L] + nums[R];
                 if (sum == 0) {
                     ans.push([nums[i], nums[L], nums[R]]);
-                    while (L < R && nums[L] == nums[L + 1]) L++; // 去重
-                    while (L < R && nums[R] == nums[R - 1]) R--; // 去重
+                    // 因为是去除连续出现的重复数字，所以要用while代替if
+                    while (L < R && nums[L] == nums[L + 1]) L++;
+                    while (L < R && nums[R] == nums[R - 1]) R--;
                     L++;
                     R--;
                 } else if (sum < 0) L++;
@@ -215,7 +223,7 @@ class PageModel extends LifeCycle<Params, Query> {
                 nums[j] = nums[i];
             } // 重复情况不生成新数组元素，指针不改变
         }
-        console.log(nums);
+        return j + 1;
     };
 
     //  移除元素
