@@ -240,17 +240,15 @@ class PageModel extends LifeCycle<Params, Query> {
 
     //  上升下降字符串
     sortString = (str: string) => {
-        // str => /a-z/ 初始化一个空桶记录a-z字符出现的频率
+        // 声明一个空桶记录a-z字符出现的频率
         const nums = new Array(26).fill(0);
         for (const char of str) {
-            // 利用index表示字符，val表示出现次数
             nums[char.charCodeAt(0) - "a".charCodeAt(0)]++;
         }
         let res = "";
         while (res.length < str.length) {
-            // 第一步，添加上升字符串
+            // 第一步，添加上升字符串，有则只添加一次，无则不添加
             for (let i = 0; i < 26; i++) {
-                // i是有序的，代表哪种字符
                 if (nums[i]) {
                     // 如果某字符存在则会被添加进res
                     res += String.fromCharCode(i + "a".charCodeAt(0));
@@ -315,9 +313,7 @@ class PageModel extends LifeCycle<Params, Query> {
                 // 考虑三种情况：1.首位相等；2.字串为回文字符串；3.字串为空或者一个字符的边界收缩条件
                 dp[i][j] = str[i] === str[j] && (j - i < 2 || dp[i + 1][j - 1]);
                 if (dp[i][j])
-                    j - i + 1 > ans.length
-                        ? (ans = str.substring(i, j + 1))
-                        : null;
+                    j - i + 1 > ans.length && (ans = str.substring(i, j + 1))
             }
         }
         return ans;
