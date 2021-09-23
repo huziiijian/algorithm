@@ -8,9 +8,7 @@ interface Query {}
 class PageModel extends LifeCycle<Params, Query> {
     constructor(props: LifeCycleProps<Params, Query>) {
         super(props);
-        const nums = [-1, 0, 1, 2, -1, -1, -1, 2, -4];
-        console.log(this.removeDuplicates(nums));
-        console.log(nums);
+        console.log(this.longestPalindrome("cbbd"));
     }
 
     // 一维数组的动态和
@@ -270,15 +268,20 @@ class PageModel extends LifeCycle<Params, Query> {
     wordBreak = (str: string, wordDict: Array<string>) => {
         const wordSet = new Set(wordDict); // 可以方便的用has
         const len = str.length;
+        // 对应长度的字串，是否为字典中单词的拼接体
+        // 因为需要记录到str最后一个字符的检测状态，即最大下标为len
         const dp = new Array(len + 1).fill(false);
-        dp[0] = true; // 让边界情况满足状态转移方程
+        // 0个字符时，自然是满足状态转移方程
+        dp[0] = true;
         for (let i = 1; i <= len; i++) {
             for (let j = i - 1; j >= 0; j--) {
+                // 检查字符串左侧中 > 不同长度字串，是否为单词
                 const suffix = str.slice(j, i);
                 if (wordSet.has(suffix) && dp[j]) {
-                    // 后缀部分是单词，且左侧子串[0,j-1]的dp[j]为真
+                    // 后缀部分是单词，且左串[0,j-1]为字典中单词的拼接体
                     dp[i] = true;
-                    break; // dp[i] = true了，i长度的子串已经可以拆成单词了，不需要j继续划分子串了
+                    // i长度的子串已经可以拆成单词了，不需要j继续划分子串
+                    break;
                 }
             }
         }
@@ -287,11 +290,11 @@ class PageModel extends LifeCycle<Params, Query> {
 
     //  最长连续递增数列
     findLengthOfLCIS = (arr: Array<number>) => {
-        // 记录当前连续递增序列的起始下标，遍历过程中比较相邻元素，根据大小决定是否需要更新连续递增序列的开始下标
+        // 记录当前连续递增序列的起始下标，遍历过程中比较上次记录，根据大小决定是否需要更新结果
         let ans = 0;
         let start = 0;
-        const len = arr.length - 1;
-        for (let i = 0; i <= len; i++) {
+        const len = arr.length;
+        for (let i = 0; i <= len - 1; i++) {
             if (arr[i] <= arr[i - 1] && i > 0) {
                 // 注意i的取值范围限定
                 start = i; // 如果相邻元素不满足递增，则前进一步
@@ -302,21 +305,34 @@ class PageModel extends LifeCycle<Params, Query> {
     };
 
     //  最长回文子串
-    longestPalindrome = (str: string) => {
-        const len = str.length;
-        let ans = "";
-        const dp = Array.from(new Array(len), () => new Array(len).fill(false));
-        // dp[i][j] = dp[i+1][j-1] && s[i] == s[j] 状态转移方程
-        // dp[i,j]：字符串s从索引i到j的子串是否是回文串
-        for (let i = len - 1; i >= 0; i--) {
-            for (let j = i; j < len; j++) {
-                // 考虑三种情况：1.首位相等；2.字串为回文字符串；3.字串为空或者一个字符的边界收缩条件
-                dp[i][j] = str[i] === str[j] && (j - i < 2 || dp[i + 1][j - 1]);
-                if (dp[i][j])
-                    j - i + 1 > ans.length && (ans = str.substring(i, j + 1))
+    /**
+     * @param {string} s
+     * @return {string}
+     */
+    longestPalindrome = (s: string) => {
+        const len = s.length;
+        if (len < 2) return s;
+        let leftSide = 0;
+        let rightSide = 0;
+        // m、n代表回文串的中心，向外发散；leftSide、rightSide为回文串为"外边界"（代表类似'cbabd'中的'c'和'd'）
+        // 注意不要用leftSide、rightSide代表内边界，会造成额外的复杂度
+        const confirmSide = (m: number, n: number) => {
+            while (m >= 0 && n < len && s[m] == s[n]) {
+                m--;
+                n++;
             }
+            // m,n的值循环完后  是恰好不满足循环条件的时刻，m，n为"外边界"
+            // n，m满足对称，则扩充res区间，记录外边界
+            if (n - m > rightSide - leftSide) [leftSide, rightSide] = [m, n];
+        };
+
+        // 循环遍历字符串 对每个字符区分奇偶，假设可能成为回文串中心进行判断
+        for (let i = 0; i < len; i++) {
+            confirmSide(i, i);
+            confirmSide(i, i + 1);
         }
-        return ans;
+        const res = s.slice(leftSide + 1, rightSide);
+        return res;
     };
 }
 

@@ -3,9 +3,7 @@
   "main": "dist/index.js",
   "scripts": {
     "create": "node script/create.js",
-    "dev": "cross-env NODE_CONFIG_ENV=dev webpack-dev-server --config=webpack/webpack.config.dev.js",
-    "qa": "cross-env NODE_CONFIG_ENV=qa webpack-dev-server --config=webpack/webpack.config.dev.js",
-    "pl": "cross-env NODE_CONFIG_ENV=pl webpack-dev-server --config=webpack/webpack.config.dev.js",
+    "start": "cross-env NODE_CONFIG_ENV=dev webpack-dev-server --config=webpack/webpack.config.dev.js",
     "prod": "cross-env NODE_CONFIG_ENV=prod webpack-dev-server --config=webpack/webpack.config.dev.js",
     "build:dev": "cross-env NODE_CONFIG_ENV=dev webpack --config=webpack/webpack.config.prod.js",
     "build:qa": "cross-env NODE_CONFIG_ENV=qa webpack --config=webpack/webpack.config.prod.js",
