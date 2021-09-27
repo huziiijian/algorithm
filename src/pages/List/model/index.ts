@@ -2,18 +2,24 @@ import LifeCycle, { LifeCycleProps } from "src/utils/VM/lifeCycle";
 interface Params {}
 interface Query {}
 const list1 = {
-    val: 9,
+    val: 2,
     next: {
-        val: 8,
+        val: 4,
         next: {
-            val: 7,
-            next: {},
+            val: 6,
+            next: null,
         },
     },
 };
 const list2 = {
-    val: 4,
-    next: null,
+    val: 5,
+    next: {
+        val: 6,
+        next: {
+            val: 7,
+            next: null,
+        },
+    },
 };
 const list3 = {
     val: 1,
@@ -44,8 +50,8 @@ class PageModel extends LifeCycle<Params, Query> {
     constructor(props: LifeCycleProps<Params, Query>) {
         super(props);
         // console.log(this.reverseList(list3));
-        console.log(this.addTwoNumbers(list1, list2));
-        // console.log(this.mergeTwoLists1(list1, list2));
+        // console.log(this.addTwoNumbers(list1, list2));
+        console.log(this.mergeTwoLists2(list1, list2));
     }
 
     // 翻转单链表
@@ -109,19 +115,20 @@ class PageModel extends LifeCycle<Params, Query> {
         }
     };
     mergeTwoLists2 = (l1: any, l2: any) => {
-        var prevHead = new ListNode(-1);
-        var prevNode = prevHead; // 指针
+        let prevHead = new ListNode(-1);
+        let currNode = prevHead; // 指针
         while (l1 != null && l2 != null) {
             if (l1.val <= l2.val) {
-                prevNode.next = l1;
+                currNode.next = l1;
                 l1 = l1.next;
             } else {
-                prevNode.next = l2;
+                currNode.next = l2;
                 l2 = l2.next;
             }
-            prevNode = prevNode.next; // 改变prevNode去获得新的next指向，但prevHead不会被污染
+            currNode = currNode.next; // 改变currNode去获得新的next指向，但prevHead不会被污染
         }
-        prevNode.next = l1 ? l1 : l2; // 指向剩余的l1,l2
+        // 如果出现null，则指向剩余的l1,l2
+        currNode.next = l1 ? l1 : l2;
         return prevHead.next;
     };
 }

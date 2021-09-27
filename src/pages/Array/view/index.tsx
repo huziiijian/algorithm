@@ -1,3 +1,10 @@
+/*
+ * @Description: 
+ * @Autor: zijian.hu01
+ * @Date: 2021-09-09 09:54:33
+ * @LastEditors: 
+ * @LastEditTime: 2021-09-27 18:58:07
+ */
 import React, { FC } from "react";
 import { observer } from "mobx-react";
 import style from "../style/index.less";
@@ -71,6 +78,16 @@ const View: FC<Props> = observer((props) => {
             <br />
             <a href="https://leetcode-cn.com/problems/longest-palindromic-substring/solution/5-zui-chang-hui-wen-zi-chuan-by-alexer-660/">
                 最长回文子串
+            </a>
+            <br />
+            <br />
+            <a href="https://leetcode-cn.com/problems/jump-game-ii/">
+                跳跃游戏 II
+            </a>
+            <br />
+            <br />
+            <a href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/">
+                无重复字符的最长子串
             </a>
         </div>
     );

@@ -8,7 +8,7 @@ interface Query {}
 class PageModel extends LifeCycle<Params, Query> {
     constructor(props: LifeCycleProps<Params, Query>) {
         super(props);
-        console.log(this.longestPalindrome("cbbd"));
+        console.log(this.merge([1, 2, 3, 0, 0, 0], 3, [2, 5, 6], 3));
     }
 
     // 一维数组的动态和
@@ -333,6 +333,60 @@ class PageModel extends LifeCycle<Params, Query> {
         }
         const res = s.slice(leftSide + 1, rightSide);
         return res;
+    };
+
+    /**
+     * @description: https://leetcode-cn.com/problems/jump-game-ii/solution/dai-ma-sui-xiang-lu-dai-ni-xue-tou-tan-x-yh58/
+     * @param {*} Array
+     * @return {*}
+     */
+    jump = (nums: Array<number>) => {
+        const len = nums.length;
+        let curIndex = 0;
+        let nextIndex = 0;
+        let steps = 0;
+        // 控制下只移动到倒数第二的位置，所以只要移动下标只要遇到当前覆盖最远距离时，就可以加一
+        // 因为题目假设总是可以到达数组的最后一个位置，所以可以这么做
+        for (let i = 0; i < len - 1; i++) {
+            // 比较出"能够"覆盖的最远距离下标
+            nextIndex = Math.max(nums[i] + i, nextIndex);
+            // 当下标为"当前"覆盖最远距离时
+            if (i === curIndex) {
+                // 更新"当前"覆盖最远距离下标，步数加一
+                curIndex = nextIndex;
+                steps++;
+            }
+        }
+
+        return steps;
+    };
+
+    /**
+     * @description: https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/solution/wu-zhong-fu-zi-fu-de-zui-chang-zi-chuan-by-leetc-2/
+     * @param {string} str
+     * @return {*}
+     */
+    lengthOfLongestSubstring = (str: string) => {
+        // 哈希集合，记录每个字符是否出现过
+        const occ = new Set();
+        const len = str.length;
+        // 右指针，初始值为 -1，相当于我们在字符串的左边界的左侧，还没有开始移动
+        let rk = -1,
+            ans = 0;
+        for (let i = 0; i < len; i++) {
+            // 从0之后，左指针向右移动一格，移除一个字符
+            if (i != 0) {
+                occ.delete(str[i - 1]);
+            }
+            while (rk < len - 1 && !occ.has(str[rk + 1])) {
+                // 不断地移动右指针
+                occ.add(str[rk + 1]);
+                ++rk;
+            }
+            // 第 i 到 rk 个字符是一个极长的无重复字符子串
+            ans = Math.max(ans, rk - i + 1);
+        }
+        return ans;
     };
 }
 
