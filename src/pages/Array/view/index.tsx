@@ -89,6 +89,11 @@ const View: FC<Props> = observer((props) => {
             <a href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/">
                 无重复字符的最长子串
             </a>
+            <br />
+            <br />
+            <a href="https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/">
+                数组中重复的数字
+            </a>
         </div>
     );
 });

@@ -131,6 +131,46 @@ class PageModel extends LifeCycle<Params, Query> {
         currNode.next = l1 ? l1 : l2;
         return prevHead.next;
     };
+
+    /**
+     * @description: https://leetcode-cn.com/problems/permutations/solution/chou-xiang-cheng-jue-ce-shu-yi-ge-pai-lie-jiu-xian/
+     * @param {Array} nums
+     * @return {*}
+     */
+    permute = (nums: Array<number>) => {
+        const res: Array<Array<number>> = [];
+        const used: {
+            [key: number]: boolean;
+        } = {};
+
+        const dfs = (path: Array<number>) => {
+            if (path.length == nums.length) {
+                // 个数选够了
+                // 结束当前递归分支，并不代表整个函数的结束，所以 path 还在参与递归
+                res.push(path.slice()); // 拷贝path，因为path会被递归函数直接修改
+                return;
+            }
+            for (const num of nums) {
+                // for枚举出每个可选的属性值
+                // if (path.includes(num)) continue; // 别这么写！查找是O(n)，增加时间复杂度
+                if (used[num]) continue; // 使用过的，跳过
+                path.push(num); // 选择当前的数，加入path
+                used[num] = true; // 记录一下 使用了
+                dfs(path); // 基于选了当前的数，递归
+                // 每一次递归结束，得到完整的一种结果后要（ 回溯 ）将最后选的数pop出来
+                path.pop();
+                // 我们不是找到一个排列就完事，要找出所有满足条件的排列。
+                // 递归结束时，结束的是当前的递归分支，还要去别的分支继续搜。
+                // 所以，要撤销当前的选择，回到选择前的状态，去选下一个选项，即切入下一个分支。
+                // 注意，往map添加的当前选择也要同时撤销。代表没有做这个选择。
+                // 退回来，把路走全，才能在一棵空间树中，回溯出所有的解
+                used[num] = false; // 撤销这个记录
+            }
+        };
+
+        dfs([]); // 递归的入口，空path传进去
+        return res;
+    };
 }
 
 export default PageModel;

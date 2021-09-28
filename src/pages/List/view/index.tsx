@@ -26,6 +26,9 @@ const View: FC<Props> = observer((props) => {
             </a>
             <br />
             <br />
+            <a href="https://leetcode-cn.com/problems/permutations/">
+                全排列
+            </a>
         </div>
     );
 });

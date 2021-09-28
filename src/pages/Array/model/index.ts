@@ -8,7 +8,7 @@ interface Query {}
 class PageModel extends LifeCycle<Params, Query> {
     constructor(props: LifeCycleProps<Params, Query>) {
         super(props);
-        console.log(this.merge([1, 2, 3, 0, 0, 0], 3, [2, 5, 6], 3));
+        console.log();
     }
 
     // 一维数组的动态和
@@ -387,6 +387,20 @@ class PageModel extends LifeCycle<Params, Query> {
             ans = Math.max(ans, rk - i + 1);
         }
         return ans;
+    };
+
+    /**
+     * @description: https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/solution/ha-xi-biao-shu-zu-zhong-zhong-fu-de-shu-bh7co/
+     * @param {Array} nums
+     * @return {*}
+     */
+    findRepeatNumber = (nums: Array<number>) => {
+        let map = new Map();
+        const len = nums.length;
+        for (let i = 0; i < len; i++) {
+            if (map.has(i)) return i;
+            map.set(i, true);
+        }
     };
 }
 
