@@ -8,7 +8,7 @@ interface Query {}
 class PageModel extends LifeCycle<Params, Query> {
     constructor(props: LifeCycleProps<Params, Query>) {
         super(props);
-        console.log();
+        console.log(this.findRepeatNumber([2, 3, 1, 0, 2, 5, 3]));
     }
 
     // 一维数组的动态和
@@ -395,11 +395,11 @@ class PageModel extends LifeCycle<Params, Query> {
      * @return {*}
      */
     findRepeatNumber = (nums: Array<number>) => {
-        let map = new Map();
         const len = nums.length;
+        let map = new Map();
         for (let i = 0; i < len; i++) {
-            if (map.has(i)) return i;
-            map.set(i, true);
+            if (map.has(nums[i])) return nums[i];
+            map.set(nums[i], true);
         }
     };
 }
