@@ -49,16 +49,15 @@ class ListNode {
 class PageModel extends LifeCycle<Params, Query> {
     constructor(props: LifeCycleProps<Params, Query>) {
         super(props);
-        // console.log(this.reverseList(list3));
+        console.log(this.reverseList(list3));
         // console.log(this.addTwoNumbers(list1, list2));
-        console.log(this.mergeTwoLists2(list1, list2));
+        // console.log(this.mergeTwoLists2(list1, list2));
     }
 
     // 翻转单链表
-    reverseList = (list1: any) => {
-        if (!list1 || !list1.next) return list1;
-        let head = list1,
-            tail: any = {};
+    reverseList = (head: any) => {
+        if (!head || !head.next) return list1;
+        let tail = null;
         // 注意链表的末节点是null
         while (head) {
             // 1,4步用来遍历，2,3步用来赋值

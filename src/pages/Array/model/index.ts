@@ -5,6 +5,7 @@ import Service from "../service";
 import LifeCycle, { LifeCycleProps } from "src/utils/VM/lifeCycle";
 interface Params {}
 interface Query {}
+
 class PageModel extends LifeCycle<Params, Query> {
     constructor(props: LifeCycleProps<Params, Query>) {
         super(props);
