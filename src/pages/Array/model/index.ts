@@ -9,7 +9,7 @@ interface Query {}
 class PageModel extends LifeCycle<Params, Query> {
     constructor(props: LifeCycleProps<Params, Query>) {
         super(props);
-        console.log(this.findRepeatNumber([2, 3, 1, 0, 2, 5, 3]));
+        console.log(this.binarySearch([2, 3, 4], 3));
     }
 
     // 一维数组的动态和
@@ -402,6 +402,23 @@ class PageModel extends LifeCycle<Params, Query> {
             if (map.has(nums[i])) return nums[i];
             map.set(nums[i], true);
         }
+    };
+
+    /**
+     * @description: https://leetcode-cn.com/problems/binary-search/solution/er-fen-cha-zhao-by-leetcode-solution-f0xw/
+     * @param {*}
+     * @return {*}
+     */
+    binarySearch = (nums: Array<number>, target: number) => {
+        let low = 0;
+        let high = nums.length - 1;
+        while (low <= high) {
+            const mid = Math.floor((high - low) / 2) + low;
+            if (nums[mid] === target) return mid;
+            if (nums[mid] > target) high = mid - 1;
+            if (nums[mid] < target) low = mid + 1;
+        }
+        return -1;
     };
 }
 

@@ -1,9 +1,9 @@
 /*
- * @Description: 
+ * @Description:
  * @Autor: zijian.hu01
  * @Date: 2021-09-09 09:54:33
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-09-30 15:48:37
+ * @LastEditTime: 2021-10-31 22:11:37
  */
 import React, { FC } from "react";
 import { observer } from "mobx-react";
@@ -93,6 +93,11 @@ const View: FC<Props> = observer((props) => {
             <br />
             <a href="https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/">
                 数组中重复的数字
+            </a>
+            <br />
+            <br />
+            <a href="https://leetcode-cn.com/problems/binary-search//">
+                二分查找
             </a>
         </div>
     );
