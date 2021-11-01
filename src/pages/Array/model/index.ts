@@ -6,10 +6,40 @@ import LifeCycle, { LifeCycleProps } from "src/utils/VM/lifeCycle";
 interface Params {}
 interface Query {}
 
+/**
+ * @description: https://leetcode-cn.com/problems/yong-liang-ge-zhan-shi-xian-dui-lie-lcof/solution/tu-jie-guan-fang-tui-jian-ti-jie-yong-li-yjbf/
+ * @param {*} 用两个栈实现队列
+ * @return {*}
+ */
+class CQueue {
+    stackIn: Array<number>;
+    stackOut: Array<number>;
+    constructor() {
+        // 入队栈
+        this.stackIn = [];
+        // 出对栈
+        this.stackOut = [];
+    }
+    appendTail = (value: any) => {
+        this.stackIn.push(value);
+    };
+    deleteHead = () => {
+        // 检查出队栈是否有数据，若无，需要从入队栈倒入后再出队
+        if (this.stackOut.length) return this.stackOut.pop();
+        else {
+            while (this.stackIn.length) {
+                this.stackOut.push(this.stackIn.pop() || 0);
+            }
+            if (!this.stackOut.length) return -1;
+            else return this.stackOut.pop();
+        }
+    };
+}
+
 class PageModel extends LifeCycle<Params, Query> {
     constructor(props: LifeCycleProps<Params, Query>) {
         super(props);
-        console.log(this.binarySearch([2, 3, 4], 3));
+        console.log(this.generateParenthesis(3));
     }
 
     // 一维数组的动态和
@@ -406,7 +436,8 @@ class PageModel extends LifeCycle<Params, Query> {
 
     /**
      * @description: https://leetcode-cn.com/problems/binary-search/solution/er-fen-cha-zhao-by-leetcode-solution-f0xw/
-     * @param {*}
+     * @param {Array} nums
+     * @param {number} target
      * @return {*}
      */
     binarySearch = (nums: Array<number>, target: number) => {
@@ -419,6 +450,36 @@ class PageModel extends LifeCycle<Params, Query> {
             if (nums[mid] < target) low = mid + 1;
         }
         return -1;
+    };
+
+    /**
+     * @description: https://leetcode-cn.com/problems/generate-parentheses/solution/pei-yang-chou-xiang-si-wei-hui-su-jie-fa-7dwu/
+     * @param {number} n
+     * @return {*}
+     */
+    generateParenthesis = (n: number) => {
+        const res: Array<string> = [];
+        if (n <= 0) return res;
+        /**
+         * @description: 用来生成每种结果的递归逻辑
+         * @param {string} path 变化的字符串
+         * @param {number} open '('的数量
+         * @param {number} close ')'的数量
+         * @return {*}
+         */
+        const dfs = (path: string, open: number, close: number) => {
+            // 递归终止条件的顺序：1. 左括号数量大于要求；2. 右括号晚于左括号生成，所以肯定少于或等于左括号
+            if (open > n || close > open) return;
+            // 3. 满足上述要求后，左右括号能成对出现，则确定一种组合方式
+            if (path.length === 2 * n) {
+                res.push(path);
+                return;
+            }
+            dfs(path + "(", open + 1, close);
+            dfs(path + ")", open, close + 1);
+        };
+        dfs("", 0, 0);
+        return res;
     };
 }
 

@@ -3,7 +3,7 @@
  * @Autor: zijian.hu01
  * @Date: 2021-09-09 09:54:33
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-10-31 22:11:37
+ * @LastEditTime: 2021-11-01 17:52:31
  */
 import React, { FC } from "react";
 import { observer } from "mobx-react";
@@ -52,52 +52,62 @@ const View: FC<Props> = observer((props) => {
             <br />
             <br />
             <a href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/solution/26-shan-chu-pai-xu-shu-zu-zhong-de-zhong-fu-xian-6/">
-                删除排序数组中的重复项
+                删除排序数组中的重复项 removeDuplicates
             </a>
             <br />
             <br />
             <a href="https://leetcode-cn.com/problems/remove-element/solution/hua-jie-suan-fa-27-yi-chu-yuan-su-by-guanpengchn/">
-                移除元素
+                移除元素 removeElement
             </a>
             <br />
             <br />
             <a href="https://leetcode-cn.com/problems/increasing-decreasing-string/solution/shang-sheng-xia-jiang-zi-fu-chuan-by-leetcode-solu/">
-                上升下降字符串
+                上升下降字符串 sortString
             </a>
             <br />
             <br />
             <a href="https://leetcode-cn.com/problems/word-break/solution/shou-hui-tu-jie-san-chong-fang-fa-dfs-bfs-dong-tai/">
-                单词拆分
+                单词拆分 wordBreak
             </a>
             <br />
             <br />
             <a href="https://leetcode-cn.com/problems/longest-continuous-increasing-subsequence/solution/zui-chang-lian-xu-di-zeng-xu-lie-by-leet-dmb8/">
-                最长连续递增序列
+                最长连续递增序列 findLengthOfLCIS
             </a>
             <br />
             <br />
             <a href="https://leetcode-cn.com/problems/longest-palindromic-substring/solution/5-zui-chang-hui-wen-zi-chuan-by-alexer-660/">
-                最长回文子串
+                最长回文子串 longestPalindrome
             </a>
             <br />
             <br />
             <a href="https://leetcode-cn.com/problems/jump-game-ii/">
-                跳跃游戏 II
+                跳跃游戏 II jump
             </a>
             <br />
             <br />
             <a href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/">
-                无重复字符的最长子串
+                无重复字符的最长子串 lengthOfLongestSubstring
             </a>
             <br />
             <br />
             <a href="https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/">
-                数组中重复的数字
+                数组中重复的数字 findRepeatNumber
             </a>
             <br />
             <br />
             <a href="https://leetcode-cn.com/problems/binary-search//">
-                二分查找
+                二分查找 binarySearch
+            </a>
+            <br />
+            <br />
+            <a href="https://leetcode-cn.com/problems/yong-liang-ge-zhan-shi-xian-dui-lie-lcof/">
+                用两个栈实现队列 CQueue
+            </a>
+            <br />
+            <br />
+            <a href="https://leetcode-cn.com/problems/generate-parentheses/">
+                括号生成 generateParenthesis
             </a>
         </div>
     );
