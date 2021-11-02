@@ -3,7 +3,7 @@
  * @Autor: zijian.hu01
  * @Date: 2021-09-09 09:54:33
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-11-01 17:52:31
+ * @LastEditTime: 2021-11-02 16:51:45
  */
 import React, { FC } from "react";
 import { observer } from "mobx-react";
@@ -108,6 +108,16 @@ const View: FC<Props> = observer((props) => {
             <br />
             <a href="https://leetcode-cn.com/problems/generate-parentheses/">
                 括号生成 generateParenthesis
+            </a>
+            <br />
+            <br />
+            <a href="https://leetcode-cn.com/problems/generate-parentheses/">
+                字符串全排列 permutation
+            </a>
+            <br />
+            <br />
+            <a href="https://leetcode-cn.com/problems/climbing-stairs/">
+                爬楼梯（青蛙跳） climbStairs
             </a>
         </div>
     );

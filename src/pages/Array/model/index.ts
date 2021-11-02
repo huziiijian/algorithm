@@ -3,6 +3,7 @@ import { history, qs } from "src/utils";
 import Service from "../service";
 
 import LifeCycle, { LifeCycleProps } from "src/utils/VM/lifeCycle";
+import { slice } from "lodash";
 interface Params {}
 interface Query {}
 
@@ -39,7 +40,6 @@ class CQueue {
 class PageModel extends LifeCycle<Params, Query> {
     constructor(props: LifeCycleProps<Params, Query>) {
         super(props);
-        console.log(this.generateParenthesis(3));
     }
 
     // 一维数组的动态和
@@ -335,7 +335,6 @@ class PageModel extends LifeCycle<Params, Query> {
         return ans;
     };
 
-    //  最长回文子串
     /**
      * @param {string} s
      * @return {string}
@@ -480,6 +479,47 @@ class PageModel extends LifeCycle<Params, Query> {
         };
         dfs("", 0, 0);
         return res;
+    };
+
+    /**
+     * @description: https://leetcode-cn.com/problems/zi-fu-chuan-de-pai-lie-lcof/solution/di-gui-zi-fu-chuan-de-pai-lie-by-jack_lz-p45c/
+     * @param {string} str
+     * @return {*}
+     */
+    permutation = (str: string) => {
+        const len = str.length;
+        // 定义递归的出口
+        if (len === 0) return [""];
+        if (len === 1) return str;
+        const res: Array<string> = [];
+        for (let i = 0; i < len; i++) {
+            // 依次取出一个字符用于递归后的全排列
+            const char = str[i];
+            const leftStr = str.slice(0, i) + str.slice(i + 1);
+            const next = this.permutation(leftStr);
+            // 将char与leftStr的全排列拼接，放入res
+            for (let item of next) {
+                res.push(char + item);
+            }
+        }
+        return [...new Set(res)];
+    };
+
+    /**
+     * @description: https://leetcode-cn.com/problems/climbing-stairs/solution/hua-jie-suan-fa-70-pa-lou-ti-by-guanpengchn/
+     * @param {number} n
+     * @return {*}
+     */
+    climbStairs = (n: number) => {
+        // 利用动态规划，推导出 dp[n]=dp[n−1]+dp[n−2]
+        const dp = [];
+        dp[1] = 1;
+        dp[2] = 2;
+        if (n <= 2) return n;
+        for (let i = 3; i <= n; i++) {
+            dp[i] = dp[i - 1] + dp[i - 2];
+        }
+        return dp[n];
     };
 }
 
