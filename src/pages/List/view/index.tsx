@@ -22,12 +22,17 @@ const View: FC<Props> = observer((props) => {
             <br />
             <br />
             <a href="https://leetcode-cn.com/problems/merge-two-sorted-lists/solution/21-he-bing-liang-ge-you-xu-lian-biao-by-alexer-6-2/">
-                合并有序链表
+                合并有序链表 mergeTwoLists
             </a>
             <br />
             <br />
             <a href="https://leetcode-cn.com/problems/permutations/">
-                全排列
+                全排列 permute
+            </a>
+            <br />
+            <br />
+            <a href="https://leetcode-cn.com/problems/binary-tree-level-order-traversal/">
+                二叉树的层序遍历 levelOrder
             </a>
         </div>
     );

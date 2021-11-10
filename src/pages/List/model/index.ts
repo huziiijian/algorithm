@@ -37,6 +37,21 @@ const list3 = {
         },
     },
 };
+const list4 = {
+    val: 3,
+    left: {
+        val: 9,
+    },
+    right: {
+        val: 20,
+        left: {
+            val: 15,
+        },
+        right: {
+            val: 7,
+        },
+    },
+};
 class ListNode {
     val: any;
     next: any;
@@ -49,9 +64,7 @@ class ListNode {
 class PageModel extends LifeCycle<Params, Query> {
     constructor(props: LifeCycleProps<Params, Query>) {
         super(props);
-        console.log(this.reverseList(list3));
-        // console.log(this.addTwoNumbers(list1, list2));
-        // console.log(this.mergeTwoLists2(list1, list2));
+        console.log("levelOrder", this.levelOrder(list4));
     }
 
     // 翻转单链表
@@ -168,6 +181,36 @@ class PageModel extends LifeCycle<Params, Query> {
         };
 
         dfs([]); // 递归的入口，空path传进去
+        return res;
+    };
+
+    /**
+     * @description: https://leetcode-cn.com/problems/binary-tree-level-order-traversal/solution/dai-ma-sui-xiang-lu-er-cha-shu-ceng-xu-b-zhun/
+     * @param {any} root
+     * @return {*}
+     */
+    levelOrder = function (root: any) {
+        // 二叉树的层序遍历，即为广度优先遍历
+        const res: Array<Array<number>> = [];
+        const quene: Array<any> = []; // 记录当前层级所有节点
+        quene.push(root);
+        if (root === null) return res;
+        // 当前节点不为空的时候进行遍历
+        while (quene.length !== 0) {
+            // 用来记录当前层级所有节点的值
+            const curLevel: Array<number> = [];
+            const len = quene.length;
+            for (let i = 0; i < len; i++) {
+                // 从左至右，先进先出
+                const node = quene.shift();
+                curLevel.push(node.val);
+                // 将当前层每个节点放进临时队列，进行下一次遍历
+                node.left && quene.push(node.left);
+                node.right && quene.push(node.right);
+            }
+            // 把每一层的结果放到结果数组
+            res.push(curLevel);
+        }
         return res;
     };
 }

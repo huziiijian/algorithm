@@ -119,6 +119,11 @@ const View: FC<Props> = observer((props) => {
             <a href="https://leetcode-cn.com/problems/climbing-stairs/">
                 爬楼梯（青蛙跳） climbStairs
             </a>
+            <br />
+            <br />
+            <a href="https://leetcode-cn.com/problems/binary-tree-level-order-traversal/">
+                合并区间 mergeSection
+            </a>
         </div>
     );
 });

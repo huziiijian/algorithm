@@ -32,7 +32,7 @@ class CQueue {
                 this.stackOut.push(this.stackIn.pop() || 0);
             }
             if (!this.stackOut.length) return -1;
-            else return this.stackOut.pop();
+            else return this.stackOut.pop(); 
         }
     };
 }
@@ -40,6 +40,7 @@ class CQueue {
 class PageModel extends LifeCycle<Params, Query> {
     constructor(props: LifeCycleProps<Params, Query>) {
         super(props);
+        console.log(this.mergeSection([[1,3],[2,4],[5,8]]))
     }
 
     // 一维数组的动态和
@@ -520,6 +521,31 @@ class PageModel extends LifeCycle<Params, Query> {
             dp[i] = dp[i - 1] + dp[i - 2];
         }
         return dp[n];
+    };
+
+    /**
+     * @description: https://leetcode-cn.com/problems/merge-intervals/solution/shou-hua-tu-jie-56he-bing-qu-jian-by-xiao_ben_zhu/
+     * @param {Array} intervals
+     * @return {*}
+     */
+    mergeSection = (intervals: Array<Array<number>>) => {
+        let res: Array<Array<number>> = [];
+        intervals.sort((a, b) => a[0] - b[0]); // 对每个子区间进行排序
+        let prev = intervals[0]; // 初始化带对比区间
+        for (let i = 1; i < intervals.length; i++) {
+            let cur = intervals[i]; // 当前子区间
+            if (prev[1] >= cur[0]) {
+                // “带对比子区间” 和 ”当前子区间“ 中有重复部分
+                prev[1] = Math.max(cur[1], prev[1]); // 判断“带对比子区间” 和 ”当前子区间“ 覆盖最大范围
+            } else {
+                // 不重合，先将prev推入res数组，再更新prev为新的子区间
+                res.push(prev);
+                prev = cur;
+            }
+        }
+        // 保证最后情况为不重合时，最后的prev会被推入res
+        res.push(prev);
+        return res;
     };
 }
 
