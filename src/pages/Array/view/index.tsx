@@ -124,6 +124,11 @@ const View: FC<Props> = observer((props) => {
             <a href="https://leetcode-cn.com/problems/binary-tree-level-order-traversal/">
                 合并区间 mergeSection
             </a>
+            <br />
+            <br />
+            <a href="https://leetcode-cn.com/problems/add-strings/">
+                字符串相加 addStrings
+            </a>
         </div>
     );
 });

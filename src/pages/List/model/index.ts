@@ -64,7 +64,15 @@ class ListNode {
 class PageModel extends LifeCycle<Params, Query> {
     constructor(props: LifeCycleProps<Params, Query>) {
         super(props);
-        console.log("levelOrder", this.levelOrder(list4));
+        console.log(
+            "numIslands",
+            this.numIslands([
+                ["1", "1", "0", "0", "1"],
+                ["1", "1", "0", "0", "0"],
+                ["0", "0", "1", "0", "0"],
+                ["0", "0", "0", "1", "1"],
+            ])
+        );
     }
 
     // 翻转单链表
@@ -210,6 +218,48 @@ class PageModel extends LifeCycle<Params, Query> {
             }
             // 把每一层的结果放到结果数组
             res.push(curLevel);
+        }
+        return res;
+    };
+
+    /**
+     * @description: https://leetcode-cn.com/problems/number-of-islands/solution/pythonjavascript-tao-lu-dfs200-dao-yu-shu-liang-by/
+     * @param {Array} grid
+     * @return {*} 时间复杂度：O(m*n); 空间复杂度：O(m*n)
+     */
+    numIslands = (grid: Array<Array<string>>) => {
+        let res = 0;
+        const rowsLen = grid.length;
+        const colsLen = grid[0].length;
+        const determinScope = (
+            grid: Array<Array<string>>,
+            i: number,
+            j: number
+        ) => {
+            if (
+                // 保证i，j不超出临界范围，且指针遇到了 ’0‘
+                i < 0 ||
+                j < 0 ||
+                i > rowsLen - 1 ||
+                j > colsLen - 1 ||
+                grid[i][j] === "0"
+            )
+                return;
+            grid[i][j] = "0"; // 访问过的，置为”0“，使递归逼近return
+            // 上下左右查找
+            determinScope(grid, i - 1, j);
+            determinScope(grid, i + 1, j);
+            determinScope(grid, i, j - 1);
+            determinScope(grid, i, j + 1);
+        };
+        for (let i = 0; i < rowsLen; i++) {
+            for (let j = 0; j < colsLen; j++) {
+                if (grid[i][j] === "1") {
+                    // 开始递归找寻边界
+                    determinScope(grid, i, j);
+                    res++;
+                }
+            }
         }
         return res;
     };

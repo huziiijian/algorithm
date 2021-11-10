@@ -3,7 +3,7 @@
  * @Autor: zijian.hu01
  * @Date: 2021-09-26 14:27:29
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-09-26 14:36:46
+ * @LastEditTime: 2021-11-10 17:30:17
  */
 
 class ListNode {
@@ -44,4 +44,3 @@ const list2 = {
         },
     }
 };
-console.log(addTwoNumbers(list1, list2));

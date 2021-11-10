@@ -1,11 +1,4 @@
-import { observable, computed, action } from "mobx";
-import { history, qs } from "src/utils";
-import Service from "../service";
-
 import LifeCycle, { LifeCycleProps } from "src/utils/VM/lifeCycle";
-import { slice } from "lodash";
-interface Params {}
-interface Query {}
 
 /**
  * @description: https://leetcode-cn.com/problems/yong-liang-ge-zhan-shi-xian-dui-lie-lcof/solution/tu-jie-guan-fang-tui-jian-ti-jie-yong-li-yjbf/
@@ -32,15 +25,15 @@ class CQueue {
                 this.stackOut.push(this.stackIn.pop() || 0);
             }
             if (!this.stackOut.length) return -1;
-            else return this.stackOut.pop(); 
+            else return this.stackOut.pop();
         }
     };
 }
 
-class PageModel extends LifeCycle<Params, Query> {
-    constructor(props: LifeCycleProps<Params, Query>) {
+class PageModel extends LifeCycle {
+    constructor(props: LifeCycleProps) {
         super(props);
-        console.log(this.mergeSection([[1,3],[2,4],[5,8]]))
+        console.log(this.addStrings("123", "11"));
     }
 
     // 一维数组的动态和
@@ -532,7 +525,8 @@ class PageModel extends LifeCycle<Params, Query> {
         let res: Array<Array<number>> = [];
         intervals.sort((a, b) => a[0] - b[0]); // 对每个子区间进行排序
         let prev = intervals[0]; // 初始化带对比区间
-        for (let i = 1; i < intervals.length; i++) {
+        const len = intervals.length;
+        for (let i = 1; i < len; i++) {
             let cur = intervals[i]; // 当前子区间
             if (prev[1] >= cur[0]) {
                 // “带对比子区间” 和 ”当前子区间“ 中有重复部分
@@ -546,6 +540,33 @@ class PageModel extends LifeCycle<Params, Query> {
         // 保证最后情况为不重合时，最后的prev会被推入res
         res.push(prev);
         return res;
+    };
+
+    /**
+     * @description: https://leetcode-cn.com/problems/add-strings/solution/zi-fu-chuan-xiang-jia-by-leetcode-solution/
+     * @param {Array} num1
+     * @param {Array} num2
+     * @return {*}
+     */
+    addStrings = (str1: string, str2: string) => {
+        // 从末尾开始计算
+        let i = str1.length - 1;
+        let j = str2.length - 1;
+        let add = 0;
+        const ans = [];
+        // 考虑到首位相加减进一位的情况
+        while (i >= 0 || j >= 0 || add != 0) {
+            // 将当前位进行计算，对于位数缺失的补 0
+            const x = i >= 0 ? Number(str1[i]) : 0;
+            const y = j >= 0 ? Number(str2[j]) : 0;
+            const result = x + y + add;
+            ans.unshift(result % 10); // 注意是保留一位数即可，即为将当前位的计算的余数保留下来
+            add = Math.floor(result / 10);
+            // 当前位置计算完后，计算上一位
+            i -= 1;
+            j -= 1;
+        }
+        return ans.join("");
     };
 }
 
