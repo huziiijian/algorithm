@@ -129,6 +129,16 @@ const View: FC<Props> = observer((props) => {
             <a href="https://leetcode-cn.com/problems/add-strings/">
                 字符串相加 addStrings
             </a>
+            <br />
+            <br />
+            <a href="https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/">
+                买卖股票的最佳时机 maxProfit
+            </a>
+            <br />
+            <br />
+            <a href="https://leetcode-cn.com/problems/3sum-closest/">
+                最接近的三数之和 threeSumClosest
+            </a>
         </div>
     );
 });

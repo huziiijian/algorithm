@@ -568,6 +568,60 @@ class PageModel extends LifeCycle {
         }
         return ans.join("");
     };
+
+    /**
+     * @description: https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/solution/dai-ma-sui-xiang-lu-121-mai-mai-gu-piao-odhle/
+     * @param {Array} prices
+     * @return {*} 时间复杂度O(n) 空间复杂度O(n)
+     */
+    maxProfit = (prices: Array<number>) => {
+        // 可以理解为整个股票最后肯定是要卖出的，不卖出那么利润永远都是负
+        const len = prices.length;
+        // dp[i][0] 表示第i天“持有”状态下（昨天或之前买入 || 今天买入）股票所得最多现金；
+        // dp[i][1] 表示第i天”非持有“状态下（昨天或之前卖出 || 今天卖出）股票所得最多现金；
+        const dp = new Array(len).fill([0, 0]);
+        dp[0] = [-prices[0], 0]; // 初始化状态为买入，收益为负的当天股价
+        for (let i = 1; i < len; i++) {
+            // 分别考虑第i天，持有或者卖出的情况
+            dp[i] = [
+                // 比较昨天“持有”状态下和今天买入的收益的大小
+                Math.max(dp[i - 1][0], -prices[i]),
+                // 比较昨天”非持有“状态下和今天卖出(也得加上昨日持有收益)的收益的大小
+                Math.max(dp[i - 1][1], prices[i] + dp[i - 1][0]),
+            ];
+        }
+        return dp[len - 1][1];
+    };
+
+    /**
+     * @description: https://leetcode-cn.com/problems/3sum-closest/solution/gu-ding-yi-ge-shu-zai-shuang-zhi-zhen-shun-bian-fu/
+     * @param {Array} prices
+     * @return {*} 
+     */
+    threeSumClosest = (nums: Array<number>, target: number) => {
+        nums.sort((a, b) => a - b);
+        let res = nums[0] + nums[1] + nums[nums.length - 1];
+
+        for (let i = 0; i < nums.length - 2; i++) {
+            const n1 = nums[i];
+            let l = i + 1;
+            let r = nums.length - 1;
+            while (l < r) {
+                const n2 = nums[l];
+                const n3 = nums[r];
+                const sum = n1 + n2 + n3;
+                if (sum > target) {
+                    r--;
+                } else {
+                    l++;
+                }
+                if (Math.abs(sum - target) < Math.abs(res - target)) {
+                    res = sum;
+                }
+            }
+        }
+        return res;
+    };
 }
 
 export default PageModel;

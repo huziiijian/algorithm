@@ -1,46 +1,39 @@
 /*
- * @Description: 
+ * @Description:
  * @Autor: zijian.hu01
  * @Date: 2021-09-26 14:27:29
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-11-10 17:30:17
+ * @LastEditTime: 2021-11-15 18:13:14
  */
 
-class ListNode {
-    val;
-    next;
-    constructor(val, next = null) {
-        this.val = val;
-        this.next = next;
-    }
-}
 
-addTwoNumbers = (list1, list2) => {
-    let head = null,
-        curr = null; // head作为输出，curr作为过程计算值
-        head = curr = {a:1}
-        curr.a =2
-        curr = {c:3}
-        console.log(curr)
-    return head;
+let global = 0;
+
+const fun1 = (fun) => {
+    setTimeout(() => {
+        fun();
+        global = 1;
+        console.log("fun1", global);
+    }, 1000);
 };
-const list1 = {
-    val: 2,
-    next: {
-        val: 4,
-        next: {
-            val: 3,
-            next: {},
-        },
-    },
+
+const fun2 = () => {
+    setTimeout(() => {
+        global = 2;
+        console.log("fun2", global);
+    }, 2000);
 };
-const list2 = {
-    val: 5,
-    next: {
-        val: 6,
-        next: {
-            val: 4,
-            next: {},
-        },
-    }
+
+const fun3 = () => {
+    setTimeout(() => console.log("fun3", global), 1000);
 };
+
+const fun4 = () => {
+    setTimeout(() => console.log("fun4", global), 2500);
+};
+
+fun1(fun2);
+fun3();
+fun4();
+
+console.log("global", global);
