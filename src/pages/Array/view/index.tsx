@@ -3,7 +3,7 @@
  * @Autor: zijian.hu01
  * @Date: 2021-09-09 09:54:33
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-11-02 16:51:45
+ * @LastEditTime: 2021-11-17 18:03:12
  */
 import React, { FC } from "react";
 import { observer } from "mobx-react";
@@ -138,6 +138,16 @@ const View: FC<Props> = observer((props) => {
             <br />
             <a href="https://leetcode-cn.com/problems/3sum-closest/">
                 最接近的三数之和 threeSumClosest
+            </a>
+            <br />
+            <br />
+            <a href="https://leetcode-cn.com/problems/3sum-closest/">
+                旋转数组的最小数字 minArray
+            </a>
+            <br />
+            <br />
+            <a href="https://leetcode-cn.com/problems/longest-consecutive-sequence/">
+                最长连续序列 longestConsecutive
             </a>
         </div>
     );

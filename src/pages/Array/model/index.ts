@@ -33,7 +33,7 @@ class CQueue {
 class PageModel extends LifeCycle {
     constructor(props: LifeCycleProps) {
         super(props);
-        console.log(this.addStrings("123", "11"));
+        console.log(this.longestConsecutive([100,4,200,1,3,2]));
     }
 
     // 一维数组的动态和
@@ -596,31 +596,75 @@ class PageModel extends LifeCycle {
     /**
      * @description: https://leetcode-cn.com/problems/3sum-closest/solution/gu-ding-yi-ge-shu-zai-shuang-zhi-zhen-shun-bian-fu/
      * @param {Array} prices
-     * @return {*} 
+     * @return {*}
      */
     threeSumClosest = (nums: Array<number>, target: number) => {
+        // 排序后根据大小顺序利用双指针，避免没有意义的重复计算
         nums.sort((a, b) => a - b);
-        let res = nums[0] + nums[1] + nums[nums.length - 1];
-
-        for (let i = 0; i < nums.length - 2; i++) {
-            const n1 = nums[i];
-            let l = i + 1;
-            let r = nums.length - 1;
-            while (l < r) {
-                const n2 = nums[l];
-                const n3 = nums[r];
-                const sum = n1 + n2 + n3;
-                if (sum > target) {
-                    r--;
-                } else {
-                    l++;
-                }
-                if (Math.abs(sum - target) < Math.abs(res - target)) {
-                    res = sum;
-                }
+        // 注意res的初始化要考虑 target 和某个数相等的情况，所以必须为三数相加
+        let res = nums[0] + nums[1] + nums[2];
+        const len = nums.length;
+        for (let i = 0; i < len - 2; i++) {
+            // 以 i 为左边界，将右边两个指针不断迭代逼近
+            const base = nums[i];
+            let lpt = i + 1;
+            let rpt = len - 1;
+            while (lpt < rpt) {
+                // 因为大小顺序知晓，缩小指针比较范围
+                const left = nums[lpt];
+                const right = nums[rpt];
+                const sum = base + left + right;
+                sum > target ? rpt-- : lpt++;
+                // 每次计算的 sum 是否更加逼近 target
+                if (Math.abs(sum - target) < Math.abs(res - target)) res = sum;
             }
         }
         return res;
+    };
+
+    /**
+     * @description: https://leetcode-cn.com/problems/xuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof/solution/xuan-zhuan-shu-zu-de-zui-xiao-shu-zi-by-leetcode-s/
+     * @param {Array} prices
+     * @param {*} numbers
+     * @return {*} 平均时间复杂度为 O(logn)  空间复杂度：O(1)
+     */
+    minArray = (numbers: Array<number>) => {
+        let low = 0;
+        let high = numbers.length - 1;
+        while (low < high) {
+            const pivot = low + Math.floor((high - low) / 2); // 防溢出的写法
+            // 此时最小值可能就是 pivot，因此只能让 high = pivot
+            if (numbers[pivot] < numbers[high]) high = pivot;
+            // 此时最小值肯定在 pivot 右边
+            else if (numbers[pivot] > numbers[high]) low = pivot + 1;
+            // [3,3,1,3] 为例
+            else if (numbers[pivot] === numbers[high]) high -= 1;
+        }
+        return numbers[low];
+    };
+
+    /**
+     * @description: https://leetcode-cn.com/problems/longest-consecutive-sequence/solution/fang-fa-cong-yi-dao-nan-bing-cha-ji-fang-fa-bu-hui/
+     * @param {*} nums
+     * @return {*} 查找 Set 中的元素的时间复杂度是 O(1)，时间复杂度O(n)
+     */
+    longestConsecutive = (nums: Array<number>) => {
+        const set = new Set(nums); // 排除重复元素的影响
+        let max = 0;
+        const len = nums.length;
+        for (let i = 0; i < len; i++) {
+            // 没有左连续，就是序列的起点
+            if (!set.has(nums[i] - 1)) {
+                let cur = nums[i]; // 定义暂时变量判断右连续过程
+                let count = 1;
+                while (set.has(cur + 1)) { // 右连续就让数量和临时变量加 1
+                    cur++;
+                    count++;
+                }
+                max = Math.max(max, count); // 结束一次查询，判断是否为最大连续次数
+            }
+        }
+        return max;
     };
 }
 
