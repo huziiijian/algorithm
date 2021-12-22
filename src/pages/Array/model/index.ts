@@ -33,7 +33,7 @@ class CQueue {
 class PageModel extends LifeCycle {
     constructor(props: LifeCycleProps) {
         super(props);
-        console.log(this.longestConsecutive([100,4,200,1,3,2]));
+        console.log(this.longestConsecutive([100, 4, 200, 1, 3, 2]));
     }
 
     // 一维数组的动态和
@@ -657,7 +657,8 @@ class PageModel extends LifeCycle {
             if (!set.has(nums[i] - 1)) {
                 let cur = nums[i]; // 定义暂时变量判断右连续过程
                 let count = 1;
-                while (set.has(cur + 1)) { // 右连续就让数量和临时变量加 1
+                while (set.has(cur + 1)) {
+                    // 右连续就让数量和临时变量加 1
                     cur++;
                     count++;
                 }
@@ -665,6 +666,30 @@ class PageModel extends LifeCycle {
             }
         }
         return max;
+    };
+
+    /**
+     * @description: https://leetcode-cn.com/problems/maximum-subarray/solution/hua-jie-suan-fa-53-zui-da-zi-xu-he-by-guanpengchn/
+     * @param {Array} nums
+     * @return {*}
+     * 1.假如全是负数，那就是找最大值即可，因为负数肯定越加越大。 
+     * 2.如果有正数，则肯定从正数开始计算和，不然前面有负值，和肯定变小了，所以从正数开始。 
+     * 3.当和小于零时，这个区间就告一段落了，然后从下一个正数重新开始计算(也就是又回到 2 了)
+     */
+    maxSubArray = (nums: Array<number>) => {
+        let sum = 0;
+        let ans = nums[0];
+        for (const num of nums) {
+            // sum > 0，则说明 sum 对结果有增益效果
+            if (sum > 0) {
+                sum += num;
+            } else {
+                sum = num;
+            }
+            // 保留遍历中出现的最大值
+            ans = Math.max(ans, sum);
+        }
+        return ans;
     };
 }
 

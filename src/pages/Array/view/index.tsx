@@ -3,7 +3,7 @@
  * @Autor: zijian.hu01
  * @Date: 2021-09-09 09:54:33
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-11-17 18:03:12
+ * @LastEditTime: 2021-12-22 23:47:46
  */
 import React, { FC } from "react";
 import { observer } from "mobx-react";
@@ -148,6 +148,11 @@ const View: FC<Props> = observer((props) => {
             <br />
             <a href="https://leetcode-cn.com/problems/longest-consecutive-sequence/">
                 最长连续序列 longestConsecutive
+            </a>
+            <br />
+            <br />
+            <a href="https://leetcode-cn.com/problems/maximum-subarray/">
+                最大子序和 maxSubArray
             </a>
         </div>
     );
