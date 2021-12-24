@@ -1,26 +1,4 @@
-/**
- * /* eslint-disable no-unused-expressions
- *
- * @format
- */
 
-/**
- * /* eslint-disable eqeqeq
- *
- * @format
- */
-
-/* eslint-disable no-plusplus */
-/* eslint-disable default-case */
-/* eslint-disable lines-between-class-members */
-/**
- * /* eslint-disable no-plusplus
- *
- * @format
- */
-
-/* eslint-disable no-empty */
-/* eslint-disable no-trailing-spaces */
 import LifeCycle, { LifeCycleProps } from 'src/utils/VM/lifeCycle';
 
 /**
@@ -729,7 +707,7 @@ class PageModel extends LifeCycle {
     const len = nums.length;
     let minIndex = 0;
     for (let i = 0; i < len - 1; i++) {
-        // 从 i 之后开始查找
+      // 从 i 之后开始查找
       minIndex = i;
       for (let j = i + 1; j < len; j++) {
         // 找到下标在 i 之后的最小元素
@@ -737,10 +715,32 @@ class PageModel extends LifeCycle {
           minIndex = j;
         }
       }
-    // 将 i 之后的最小元素与 i 对应的元素置换
+      // 将 i 之后的最小元素与 i 对应的元素置换
       [nums[i], nums[minIndex]] = [nums[minIndex], nums[i]];
     }
     return nums;
+  };
+
+  /**
+   * @description: https://leetcode-cn.com/problems/move-zeroes/solution/283-yi-dong-ling-by-chen-wei-f-wxfh/
+   * @param {Array} nums
+   * @return {*}
+   * 定义left、right指针，right从左往右移动，遇上非0元素，交换left和right对应的元素，交换之后left++
+   * 时间复杂度O(n)
+   * 空间复杂度O(1)
+   */
+  moveZeroes = (nums: Array<number>) => {
+    let left = 0;
+    let right = 0;
+    const len = nums.length;
+    while (right < len) {
+      if (nums[right] !== 0) {
+        [nums[left], nums[right]] = [nums[right], nums[left]];
+        left++;
+      }
+      // 如果碰到零，相当于right + 1，left不变
+      right++;
+    }
   };
 }
 

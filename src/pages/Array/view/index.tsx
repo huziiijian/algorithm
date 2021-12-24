@@ -1,20 +1,4 @@
-/* eslint-disable comma-dangle */
-/* eslint-disable react/no-array-index-key */
-/* eslint-disable react/jsx-indent */
-/**
- * /* eslint-disable react/no-array-index-key
- *
- * @format
- */
 
-/* eslint-disable react/jsx-filename-extension */
-/*
- * @Description:
- * @Autor: zijian.hu01
- * @Date: 2021-09-09 09:54:33
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-23 23:17:16
- */
 import React, { FC } from 'react';
 import { observer } from 'mobx-react';
 import style from '../style/index.less';
@@ -138,6 +122,18 @@ const View: FC<Props> = observer((props) => {
     {
       href: 'https://leetcode-cn.com/problems/sort-an-array/solution/',
       title: '选择排序 selectSort',
+    },
+    {
+      href: 'https://leetcode-cn.com/problems/move-zeroes/',
+      title: '移动零 moveZeroes',
+    },
+    {
+      href: '',
+      title: '',
+    },
+    {
+      href: '',
+      title: '',
     },
   ];
 
