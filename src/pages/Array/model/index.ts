@@ -1,3 +1,4 @@
+/** @format */
 
 import LifeCycle, { LifeCycleProps } from 'src/utils/VM/lifeCycle';
 
@@ -741,6 +742,37 @@ class PageModel extends LifeCycle {
       // 如果碰到零，相当于right + 1，left不变
       right++;
     }
+  };
+
+  /**
+   * @description: https://leetcode-cn.com/problems/multiply-strings/solution/shi-pin-jiang-jie-43-zi-fu-chuan-xiang-cheng-by-hy/
+   * @param {Array} num1
+   * @param {Array} num2
+   * @return {*}
+   */
+  multiply = (num1: Array<number>, num2: Array<number>) => {
+    let len1 = num1.length;
+    let len2 = num2.length;
+    // 存放结果，位数最大为两数长度相加
+    let ans = new Array(len1 + len2).fill(0);
+    // 注意是从后往前计算
+    for (let i = len1 - 1; i >= 0; i--) {
+      for (let j = len2 - 1; j >= 0; j--) {
+        const multi = num1[i] * num2[j];
+        // 总数等于该位数的乘积 + 存在的进位（即上次 ans[i+j] 的值，此时变为 ans[i+j+1]）
+        const sum = ans[i + j + 1] + multi;
+        ans[i + j + 1] = sum % 10;
+        // 从后往前依次填充，例如 11 * 12 = pos:[0, 1, 3, 2]
+        // 则最先填充的是 pos[1 + 1 + 1] = 2，最后是0
+        // 余数留在位置上，除数代表进位往前走
+        ans[i + j] += (sum / 10) | 0;
+      }
+    }
+    while (ans[0] === 0) {
+      ans.shift();
+    }
+    // 防止空串
+    return ans.length ? ans.join('') : '0'
   };
 }
 

@@ -128,8 +128,8 @@ const View: FC<Props> = observer((props) => {
       title: '移动零 moveZeroes',
     },
     {
-      href: '',
-      title: '',
+      href: 'https://leetcode-cn.com/problems/multiply-strings/',
+      title: '字符串相乘 multiply',
     },
     {
       href: '',
